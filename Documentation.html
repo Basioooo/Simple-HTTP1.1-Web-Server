@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team 20 Web Server Project Documentation</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+            padding: 2rem;
+        }
+        
+        h1, h2, h3, h4 {
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            color: #2d3748;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            color: #4a148c;
+            border-bottom: 2px solid #6a1b9a;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            color: #5e35b1;
+            border-bottom: 1px solid #7e57c2;
+            padding-bottom: 0.3rem;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            color: #673ab7;
+        }
+        
+        h4 {
+            font-size: 1.2rem;
+            color: #7e57c2;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        pre {
+            background-color: #1a1a2e;
+            color: #e2e2e2;
+            padding: 1.2rem;
+            border-radius: 0.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            box-shadow: 0 0 10px rgba(137, 80, 252, 0.3), 0 0 20px rgba(137, 80, 252, 0.1) inset;
+            border: 1px solid #6b46c1;
+            transition: all 0.3s ease;
+        }
+        
+        pre:hover {
+            box-shadow: 0 0 15px rgba(137, 80, 252, 0.5), 0 0 25px rgba(137, 80, 252, 0.2) inset;
+        }
+        
+        code {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+        }
+        
+        ul, ol {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .section {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .team-member {
+            padding: 1rem;
+            border-left: 3px solid #7e57c2;
+            margin-bottom: 1rem;
+            background-color: #f3f0ff;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+        
+        .highlight {
+            background-color: #f0e6ff;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            color: #5e35b1;
+            font-weight: 500;
+        }
+        
+        .screenshot {
+            border: 1px solid #ddd;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            max-width: 100%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-card {
+            border-left: 4px solid #673ab7;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+            background-color: #f8f5ff;
+            padding: 1rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+        
+        .bonus-section {
+            background: linear-gradient(135deg, #f3e7ff 0%, #ffffff 100%);
+            border: 1px solid #d4c1f5;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 10px rgba(123, 97, 255, 0.1);
+        }
+        
+        .code-function {
+            color: #61afef;
+            font-weight: bold;
+        }
+        
+        .code-keyword {
+            color: #c678dd;
+            font-weight: bold;
+        }
+        
+        .code-string {
+            color: #98c379;
+        }
+        
+        .code-comment {
+            color: #7f848e;
+            font-style: italic;
+        }
+        
+        .code-variable {
+            color: #e06c75;
+        }
+        
+        .toc {
+            background-color: #f0ebff;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid #d4c1f5;
+        }
+        
+        .toc-link {
+            color: #5e35b1;
+            text-decoration: none;
+            display: block;
+            padding: 0.3rem 0;
+            transition: all 0.2s ease;
+        }
+        
+        .toc-link:hover {
+            color: #3a1e8c;
+            transform: translateX(5px);
+        }
+        
+        .toc-indent {
+            margin-left: 1.5rem;
+        }
+        
+        .button {
+            display: inline-block;
+            background-color: #7e57c2;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .button:hover {
+            background-color: #5e35b1;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto max-w-5xl">
+        <h1 class="text-center">Team 20 Web Server Project Documentation</h1>
+        
+        <div class="toc">
+            <h3>Table of Contents</h3>
+            <a href="#project-overview" class="toc-link">Project Overview</a>
+            <a href="#our-team" class="toc-link">Our Team</a>
+            <a href="#key-features" class="toc-link">Key Features</a>
+            <a href="#bonus-features" class="toc-link">Bonus Features</a>
+            <div class="toc-indent">
+                <a href="#enhanced-gui" class="toc-link">Enhanced GUI</a>
+                <a href="#shutdown-button" class="toc-link">Shutdown Button</a>
+                <a href="#music-player" class="toc-link">Music Player</a>
+                <a href="#system-status" class="toc-link">System Status</a>
+                <a href="#code-explanation" class="toc-link">Code Explanation Section</a>
+                <a href="#live-clock" class="toc-link">Live Clock</a>
+            </div>
+            <a href="#implementation-details" class="toc-link">Implementation Details</a>
+            <a href="#getting-started" class="toc-link">Getting Started</a>
+            <a href="#conclusion" class="toc-link">Conclusion</a>
+        </div>
+        
+        <div class="section" id="project-overview">
+            <h2>Project Overview</h2>
+            <p>This project implements a simple HTTP/1.1 web server using Python's socket programming. The server is capable of handling basic GET requests, serving static files, and providing appropriate HTTP responses with status codes.</p>
+            
+            <p>The SimpleHTTPServer class forms the core of this project, managing socket connections, threading, and handling client requests. The server can serve HTML, images, JSON, and other file types with proper MIME type detection.</p>
+            
+            <p>The implementation follows HTTP protocol standards and includes basic security features like protection against directory traversal attacks. The server is multi-threaded to handle multiple client connections simultaneously.</p>
+        </div>
+        
+        <div class="section" id="our-team">
+            <h2>Our Team</h2>
+            
+            <div class="team-member">
+                <h4>MI</h4>
+                <h3>Malak Islam (240105935)</h3>
+                <p>Team Leader</p>
+            </div>
+            
+            <div class="team-member">
+                <h4>MH</h4>
+                <h3>Mahmoud Hesham (240101375)</h3>
+            </div>
+            
+            <div class="team-member">
+                <h4>DS</h4>
+                <h3>Doaa Shahin (240100001)</h3>
+            </div>
+            
+            <div class="team-member">
+                <h4>SA</h4>
+                <h3>Sama Abd El-Wahhab (240102714)</h3>
+            </div>
+            
+            <p>This project was completed under the supervision of DR. Mariam Labib for the Network Basics course.</p>
+        </div>
+        
+        <div class="section" id="key-features">
+            <h2>Key Features</h2>
+            
+            <h3>HTTP/1.1 Compliant</h3>
+            <p>Properly formats HTTP responses with status line, headers, and content according to HTTP/1.1 specifications.</p>
+            
+            <h3>Static File Serving</h3>
+            <p>Serves static files from the designated 'www' directory with appropriate MIME type detection.</p>
+            
+            <h3>Status Code Handling</h3>
+            <p>Returns appropriate status codes (200, 404, 403, 500) based on request outcome and server conditions.</p>
+            
+            <h3>Basic Security</h3>
+            <p>Implements security measures against directory traversal attacks and restricts access to sensitive files.</p>
+            
+            <h3>Multi-threaded</h3>
+            <p>Handles client connections in separate threads for improved performance and concurrency.</p>
+            
+            <h3>Remote Shutdown</h3>
+            <p>Provides a dedicated endpoint (/shutdown) to gracefully stop the server remotely.</p>
+        </div>
+        
+        <div class="bonus-section" id="bonus-features">
+            <h2>Bonus Features</h2>
+            <p>Our team went beyond the basic requirements and implemented several bonus features to enhance the functionality and user experience of our web server project:</p>
+            
+            <div class="feature-card" id="enhanced-gui">
+                <h3><i class="fas fa-paint-brush text-purple-600 mr-2"></i>Enhanced GUI</h3>
+                <p>We designed a modern, responsive user interface with a consistent purple color scheme throughout the application. The interface features:</p>
+                <ul class="list-disc ml-6">
+                    <li>Clean, card-based layout for different server functions</li>
+                    <li>Consistent styling with gradient backgrounds</li>
+                    <li>Intuitive navigation with clear section headers</li>
+                    <li>Responsive design that works across different device sizes</li>
+                    <li>Interactive elements with hover effects for better user experience</li>
+                </ul>
+                <p>The enhanced GUI provides a more professional look and feel, making the server interface more user-friendly and visually appealing.</p>
+            </div>
+            
+            <div class="feature-card" id="shutdown-button">
+                <h3><i class="fas fa-power-off text-red-500 mr-2"></i>Shutdown Button</h3>
+                <p>We implemented a dedicated shutdown button in the Admin panel that allows users to gracefully stop the server remotely without having to manually terminate the process. This feature:</p>
+                <ul class="list-disc ml-6">
+                    <li>Triggers a clean server shutdown when clicked</li>
+                    <li>Shows a confirmation notification before shutting down</li>
+                    <li>Closes all active connections properly</li>
+                    <li>Implements the server shutdown through a dedicated endpoint (/shutdown)</li>
+                </ul>
+                <p>The shutdown functionality is implemented through the following method:</p>
+                <pre><code><span class="code-keyword">def</span> <span class="code-function">handle_shutdown</span>(self, client_socket):
+    <span class="code-comment"># Send a notification page</span>
+    shutdown_message = <span class="code-string">"Server is shutting down..."</span>
+    html_content = self.generate_page(<span class="code-string">"Server Shutdown"</span>, shutdown_message)
+    
+    self.send_response(
+        client_socket,
+        200,
+        <span class="code-string">"OK"</span>,
+        html_content,
+        headers={
+            <span class="code-string">'Content-Type'</span>: <span class="code-string">'text/html'</span>,
+            <span class="code-string">'Content-Length'</span>: <span class="code-variable">len</span>(html_content)
+        }
+    )
+    
+    <span class="code-comment"># Schedule server shutdown</span>
+    threading.Thread(target=self.stop).start()</code></pre>
+            </div>
+            
+            <div class="feature-card" id="music-player">
+                <h3><i class="fas fa-music text-purple-600 mr-2"></i>Music Player</h3>
+                <p>We integrated a functional music player that allows users to play and pause audio files directly from the web server interface. The music player:</p>
+                <ul class="list-disc ml-6">
+                    <li>Displays the currently playing song name ("Luther - Kendrick Lamar ft. SZA")</li>
+                    <li>Provides play/pause controls with an intuitive button interface</li>
+                    <li>Supports MP3 file playback through HTML5 audio</li>
+                    <li>Shows playback status to the user</li>
+                </ul>
+                <p>The music player is implemented with HTML5 audio elements and JavaScript:</p>
+                <pre><code><span class="code-comment">// Music Player Frontend Implementation</span>
+<span class="code-keyword">function</span> <span class="code-function">initMusicPlayer</span>() {
+    <span class="code-keyword">const</span> <span class="code-variable">audioPlayer</span> = <span class="code-keyword">new</span> Audio(<span class="code-string">'luther.mp3'</span>);
+    <span class="code-keyword">const</span> <span class="code-variable">playButton</span> = document.getElementById(<span class="code-string">'play-button'</span>);
+    <span class="code-keyword">let</span> <span class="code-variable">isPlaying</span> = <span class="code-keyword">false</span>;
+    
+    <span class="code-variable">playButton</span>.addEventListener(<span class="code-string">'click'</span>, () => {
+        <span class="code-keyword">if</span> (<span class="code-variable">isPlaying</span>) {
+            <span class="code-variable">audioPlayer</span>.pause();
+            <span class="code-variable">playButton</span>.innerHTML = <span class="code-string">'<i class="fas fa-play"></i> Play'</span>;
+        } <span class="code-keyword">else</span> {
+            <span class="code-variable">audioPlayer</span>.play();
+            <span class="code-variable">playButton</span>.innerHTML = <span class="code-string">'<i class="fas fa-pause"></i> Pause'</span>;
+        }
+        <span class="code-variable">isPlaying</span> = !<span class="code-variable">isPlaying</span>;
+    });
+}</code></pre>
+
+                <p>The server-side code includes a route handler for serving the music file:</p>
+                <pre><code><span class="code-keyword">def</span> <span class="code-function">handle_audio</span>(self, client_socket, file_path):
+    <span class="code-keyword">try</span>:
+        <span class="code-keyword">with</span> <span class="code-function">open</span>(file_path, <span class="code-string">'rb'</span>) <span class="code-keyword">as</span> file:
+            content = file.read()
+            
+        self.send_response(
+            client_socket,
+            200,
+            <span class="code-string">"OK"</span>,
+            content,
+            headers={
+                <span class="code-string">'Content-Type'</span>: <span class="code-string">'audio/mpeg'</span>,
+                <span class="code-string">'Content-Length'</span>: <span class="code-variable">len</span>(content)
+            }
+        )
+    <span class="code-keyword">except</span> <span class="code-variable">Exception</span> <span class="code-keyword">as</span> e:
+        self.send_response(client_socket, 500, <span class="code-string">"Internal Server Error"</span>, <span class="code-function">str</span>(e))</code></pre>
+            </div>
+            
+            <div class="feature-card" id="system-status">
+                <h3><i class="fas fa-server text-purple-600 mr-2"></i>System Status</h3>
+                <p>We implemented a comprehensive system status monitoring feature that displays real-time information about the server's performance and resources. The system status panel shows:</p>
+                <ul class="list-disc ml-6">
+                    <li>Server status (Online/Offline)</li>
+                    <li>Current server time (2025-05-21 23:12:22)</li>
+                    <li>Server uptime (3h 17m 29s)</li>
+                    <li>Memory usage with percentage and absolute values (54.8% (17803MB/32491MB))</li>
+                    <li>CPU usage percentage (0.0%)</li>
+                </ul>
+                <p>This information is fetched and displayed using the psutil library, with a fallback mechanism if psutil is not installed:</p>
+                <pre><code><span class="code-keyword">def</span> <span class="code-function">handle_status</span>(self, client_socket):
+    <span class="code-comment"># Get system information</span>
+    status_data = {
+        <span class="code-string">"status"</span>: <span class="code-string">"Online"</span>,
+        <span class="code-string">"time"</span>: datetime.now().strftime(<span class="code-string">"%Y-%m-%d %H:%M:%S"</span>),
+        <span class="code-string">"uptime"</span>: self.get_uptime(),
+    }
+    
+    <span class="code-comment"># Try to get CPU and memory info if psutil is available</span>
+    <span class="code-keyword">try</span>:
+        <span class="code-keyword">import</span> psutil
+        memory = psutil.virtual_memory()
+        status_data[<span class="code-string">"memory"</span>] = {
+            <span class="code-string">"percent"</span>: memory.percent,
+            <span class="code-string">"used"</span>: memory.used // (1024 * 1024),  <span class="code-comment"># MB</span>
+            <span class="code-string">"total"</span>: memory.total // (1024 * 1024)  <span class="code-comment"># MB</span>
+        }
+        status_data[<span class="code-string">"cpu"</span>] = psutil.cpu_percent(interval=0.1)
+    <span class="code-keyword">except</span> <span class="code-variable">ImportError</span>:
+        status_data[<span class="code-string">"memory"</span>] = <span class="code-string">"N/A (psutil not installed)"</span>
+        status_data[<span class="code-string">"cpu"</span>] = <span class="code-string">"N/A (psutil not installed)"</span>
+    
+    <span class="code-comment"># Convert to JSON</span>
+    json_data = json.dumps(status_data, indent=4)
+    
+    <span class="code-comment"># Send response</span>
+    self.send_response(
+        client_socket,
+        200,
+        <span class="code-string">"OK"</span>,
+        json_data,
+        headers={
+            <span class="code-string">'Content-Type'</span>: <span class="code-string">'application/json'</span>,
+            <span class="code-string">'Content-Length'</span>: <span class="code-variable">len</span>(json_data)
+        }
+    )</code></pre>
+            </div>
+            
+            <div class="feature-card" id="code-explanation">
+                <h3><i class="fas fa-code text-purple-600 mr-2"></i>Code Explanation Section</h3>
+                <p>We created a dedicated "Code Explanation" section that provides comprehensive documentation of the server's implementation details. This feature:</p>
+                <ul class="list-disc ml-6">
+                    <li>Explains server initialization and core functionality</li>
+                    <li>Documents methods for starting and stopping the server</li>
+                    <li>Details request handling and file serving processes</li>
+                    <li>Describes endpoint implementations including shutdown and status endpoints</li>
+                    <li>Explains dynamic HTML generation</li>
+                </ul>
+                <p>The code explanation section is organized into logical sections with actual code snippets from the implementation, making it easier for users to understand how the server works. The section uses syntax highlighting for improved readability.</p>
+                <p>Example code from the server initialization:</p>
+                <pre><code><span class="code-keyword">class</span> <span class="code-function">SimpleHTTPServer</span>:
+    <span class="code-keyword">def</span> <span class="code-function">__init__</span>(self, host=<span class="code-string">'localhost'</span>, port=8080):
+        self.host = host
+        self.port = port
+        self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self.base_dir = os.path.dirname(os.path.abspath(__file__))
+        self.running = <span class="code-keyword">False</span>
+        self.start_time = <span class="code-variable">None</span></code></pre>
+            </div>
+            
+            <div class="feature-card" id="live-clock">
+                <h3><i class="fas fa-clock text-purple-600 mr-2"></i>Live Clock</h3>
+                <p>We added a dynamic live clock feature that displays the current date and time, updating in real-time. The clock:</p>
+                <ul class="list-disc ml-6">
+                    <li>Shows the current date in MM/DD/YYYY format</li>
+                    <li>Displays the current time with hours, minutes, and seconds</li>
+                    <li>Updates every second using JavaScript</li>
+                    <li>Includes AM/PM indicator</li>
+                </ul>
+                <p>Implementation of the live clock with JavaScript:</p>
+                <pre><code><span class="code-comment">// Live Clock Implementation</span>
+<span class="code-keyword">function</span> <span class="code-function">updateClock</span>() {
+    <span class="code-keyword">const</span> <span class="code-variable">now</span> = <span class="code-keyword">new</span> Date();
+    <span class="code-keyword">const</span> <span class="code-variable">clockElement</span> = document.getElementById(<span class="code-string">'live-clock'</span>);
+    
+    <span class="code-keyword">const</span> <span class="code-variable">month</span> = <span class="code-variable">now</span>.getMonth() + 1;
+    <span class="code-keyword">const</span> <span class="code-variable">day</span> = <span class="code-variable">now</span>.getDate();
+    <span class="code-keyword">const</span> <span class="code-variable">year</span> = <span class="code-variable">now</span>.getFullYear();
+    
+    <span class="code-keyword">const</span> <span class="code-variable">hours</span> = <span class="code-variable">now</span>.getHours();
+    <span class="code-keyword">const</span> <span class="code-variable">minutes</span> = <span class="code-variable">now</span>.getMinutes().toString().padStart(2, <span class="code-string">'0'</span>);
+    <span class="code-keyword">const</span> <span class="code-variable">seconds</span> = <span class="code-variable">now</span>.getSeconds().toString().padStart(2, <span class="code-string">'0'</span>);
+    
+    <span class="code-keyword">const</span> <span class="code-variable">ampm</span> = <span class="code-variable">hours</span> >= 12 ? <span class="code-string">'PM'</span> : <span class="code-string">'AM'</span>;
+    <span class="code-keyword">const</span> <span class="code-variable">hour12</span> = <span class="code-variable">hours</span> % 12 || 12;
+    
+    <span class="code-variable">clockElement</span>.textContent = 
+        `${<span class="code-variable">month</span>}/${<span class="code-variable">day</span>}/${<span class="code-variable">year</span>}, ${<span class="code-variable">hour12</span>}:${<span class="code-variable">minutes</span>}:${<span class="code-variable">seconds</span>} ${<span class="code-variable">ampm</span>}`;
+}
+
+<span class="code-comment">// Update the clock every second</span>
+<span class="code-function">setInterval</span>(updateClock, 1000);
+<span class="code-function">updateClock</span>();  <span class="code-comment">// Initial update</span></code></pre>
+            </div>
+        </div>
+        
+        <div class="section" id="implementation-details">
+            <h2>Implementation Details</h2>
+            
+            <h3>Server Architecture</h3>
+            
+            <h4>Server Initialization</h4>
+            <p>The server is initialized with a host and port configuration, creating a socket that listens for incoming connections. The socket is configured to reuse the address to avoid "Address already in use" errors during quick restarts.</p>
+            
+            <pre><code><span class="code-keyword">def</span> <span class="code-function">__init__</span>(self, host=<span class="code-string">'localhost'</span>, port=8080):
+    self.host = host
+    self.port = port
+    self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    self.base_dir = os.path.dirname(os.path.abspath(__file__))
+    self.running = <span class="code-keyword">False</span></code></pre>
+            
+            <h4>Connection Handling</h4>
+            <p>When started, the server enters a loop listening for incoming connections. Each connection is handled in a separate thread to allow for multiple simultaneous clients.</p>
+            
+            <pre><code><span class="code-keyword">def</span> <span class="code-function">start</span>(self):
+    self.server_socket.bind((self.host, self.port))
+    self.server_socket.listen(5)
+    self.running = <span class="code-keyword">True</span>
+    self.start_time = time.time()
+    <span class="code-function">print</span>(f<span class="code-string">"Server started on http://{self.host}:{self.port}"</span>)
+    
+    <span class="code-comment"># Main server loop</span>
+    <span class="code-keyword">try</span>:
+        <span class="code-keyword">while</span> self.running:
+            client_socket, client_address = self.server_socket.accept()
+            thread = threading.Thread(
+                target=self.handle_request, 
+                args=(client_socket,)
+            )
+            thread.start()
+    <span class="code-keyword">except</span> <span class="code-variable">KeyboardInterrupt</span>:
+        self.stop()</code></pre>
+            
+            <h3>Request Processing</h3>
+            
+            <h4>Request Parsing</h4>
+            <p>The server parses incoming HTTP requests to extract the method, path, and HTTP version. It then processes the request based on these parameters.</p>
+            
+            <pre><code><span class="code-keyword">def</span> <span class="code-function">handle_request</span>(self, client_socket):
+    <span class="code-keyword">try</span>:
+        request_data = client_socket.recv(1024).decode(<span class="code-string">'utf-8'</span>)
+        <span class="code-keyword">if</span> <span class="code-keyword">not</span> request_data:
+            <span class="code-keyword">return</span>
+            
+        request_lines = request_data.split(<span class="code-string">'\r\n'</span>)
+        request_line = request_lines[0]
+        method, path, _ = request_line.split(<span class="code-string">' '</span>)
+        
+        <span class="code-comment"># Security check</span>
+        <span class="code-keyword">if</span> <span class="code-string">'../'</span> <span class="code-keyword">in</span> path:
+            self.send_response(client_socket, 403, <span class="code-string">"Forbidden"</span>, <span class="code-string">"Access denied"</span>)
+            <span class="code-keyword">return</span>
+            
+        <span class="code-keyword">if</span> path == <span class="code-string">'/'</span>:
+            path = <span class="code-string">'/index.html'</span>
+            
+        <span class="code-keyword">if</span> path == <span class="code-string">'/shutdown'</span>:
+            self.handle_shutdown(client_socket)
+            <span class="code-keyword">return</span>
+
+        <span class="code-keyword">if</span> path == <span class="code-string">'/status'</span>:
+            self.handle_status(client_socket)
+            <span class="code-keyword">return</span>
+            
+        file_path = os.path.join(self.base_dir, <span class="code-string">'www'</span>, path.lstrip(<span class="code-string">'/'</span>))
+        
+        <span class="code-keyword">if</span> method == <span class="code-string">'GET'</span>:
+            self.handle_get(client_socket, file_path)
+        <span class="code-keyword">else</span>:
+            self.send_response(client_socket, 501, <span class="code-string">"Not Implemented"</span>, <span class="code-string">"Method not supported"</span>)
+    <span class="code-keyword">finally</span>:
+        client_socket.close()</code></pre>
+            
+            <h3>Response Generation</h3>
+            
+            <h4>File Serving</h4>
+            <p>The server identifies the MIME type of the requested file and sends it with appropriate headers. If the file doesn't exist, a 404 response is returned.</p>
+            
+            <pre><code><span class="code-keyword">def</span> <span class="code-function">handle_get</span>(self, client_socket, file_path):
+    <span class="code-keyword">try</span>:
+        <span class="code-keyword">if</span> os.path.isfile(file_path):
+            <span class="code-keyword">with</span> <span class="code-function">open</span>(file_path, <span class="code-string">'rb'</span>) <span class="code-keyword">as</span> file:
+                content = file.read()
+                
+            mime_type, _ = mimetypes.guess_type(file_path)
+            mime_type = mime_type or <span class="code-string">'application/octet-stream'</span>
+            
+            self.send_response(
+                client_socket,
+                200,
+                <span class="code-string">"OK"</span>,
+                content,
+                headers={
+                    <span class="code-string">'Content-Type'</span>: mime_type,
+                    <span class="code-string">'Content-Length'</span>: <span class="code-variable">len</span>(content)
+                }
+            )
+        <span class="code-keyword">else</span>:
+            error_content = self.generate_error_page(404, <span class="code-string">"Not Found"</span>, <span class="code-string">"The requested resource was not found."</span>)
+            self.send_response(
+                client_socket,
+                404,
+                <span class="code-string">"Not Found"</span>,
+                error_content,
+                headers={
+                    <span class="code-string">'Content-Type'</span>: <span class="code-string">'text/html'</span>,
+                    <span class="code-string">'Content-Length'</span>: <span class="code-variable">len</span>(error_content)
+                }
+            )
+    <span class="code-keyword">except</span> <span class="code-variable">PermissionError</span>:
+        self.send_response(client_socket, 403, <span class="code-string">"Forbidden"</span>, <span class="code-string">"Access denied"</span>)</code></pre>
+            
+            <h4>HTTP Response Construction</h4>
+            <p>The server constructs HTTP responses with appropriate status codes, headers, and content. Each response includes standard headers like Server name and Date.</p>
+            
+            <pre><code><span class="code-keyword">def</span> <span class="code-function">send_response</span>(self, client_socket, status_code, status_message, content, headers=<span class="code-variable">None</span>):
+    <span class="code-keyword">if</span> headers <span class="code-keyword">is</span> <span class="code-variable">None</span>:
+        headers = {}
+        
+    default_headers = {
+        <span class="code-string">'Server'</span>: <span class="code-string">'Team20WebServerHTTP/1.0'</span>,
+        <span class="code-string">'Date'</span>: datetime.utcnow().strftime(<span class="code-string">'%a, %d %b %Y %H:%M:%S GMT'</span>),
+        <span class="code-string">'Connection'</span>: <span class="code-string">'close'</span>
+    }
+    
+    response_headers = {**default_headers, **headers}
+    
+    response_lines = [
+        f<span class="code-string">"HTTP/1.1 {status_code} {status_message}"</span>,
+        *[f<span class="code-string">"{key}: {value}"</span> <span class="code-keyword">for</span> key, value <span class="code-keyword">in</span> response_headers.items()]
+    ]
+    
+    response_header = <span class="code-string">'\r\n'</span>.join(response_lines) + <span class="code-string">'\r\n\r\n'</span>
+    client_socket.send(response_header.encode(<span class="code-string">'utf-8'</span>))
+    
+    <span class="code-keyword">if</span> <span class="code-variable">isinstance</span>(content, <span class="code-variable">str</span>):
+        content = content.encode(<span class="code-string">'utf-8'</span>)
+        
+    <span class="code-keyword">if</span> content:
+        client_socket.send(content)</code></pre>
+        </div>
+        
+        <div class="section" id="getting-started">
+            <h2>Getting Started</h2>
+            
+            <h3>Installation</h3>
+            <p>This server is built with Python's standard library and doesn't require any external dependencies, making it easy to set up. For full functionality including system status monitoring, the psutil library is recommended but not required.</p>
+            
+            <h4>1. Clone the Repository</h4>
+            <pre><code>git clone https://github.com/team20/simple-web-server.git
+cd simple-web-server</code></pre>
+            
+            <h4>2. Optional: Install psutil for System Monitoring</h4>
+            <pre><code>pip install psutil</code></pre>
+            
+            <h4>3. Run the Server</h4>
+            <pre><code>python server.py</code></pre>
+            
+            <p>The server will start on <code>http://localhost:8080</code> by default.</p>
+            
+            <h3>Usage Examples</h3>
+            
+            <h4>Serving Custom Content</h4>
+            <p>To serve your own content, simply place your files in the <code>www</code> directory. The server will automatically create this directory if it doesn't exist.</p>
+            
+            <h4>Testing the Server</h4>
+            <p><strong>Basic Access:</strong><br>
+            <code>http://localhost:8080/</code></p>
+            
+            <p><strong>Accessing JSON data:</strong><br>
+            <code>http://localhost:8080/data.json</code></p>
+            
+            <p><strong>Test 404 error:</strong><br>
+            <code>http://localhost:8080/nonexistent.html</code></p>
+            
+            <p><strong>View System Status:</strong><br>
+            <code>http://localhost:8080/status</code></p>
+            
+            <p><strong>Server shutdown:</strong><br>
+            <code>http://localhost:8080/shutdown</code></p>
+            
+            <h4>Custom Port Configuration</h4>
+            <p>To run the server on a different port, modify the <code>port</code> parameter in the <code>main()</code> function:</p>
+            
+            <pre><code><span class="code-keyword">def</span> <span class="code-function">main</span>():
+    <span class="code-comment"># ...</span>
+    server = SimpleHTTPServer(host=<span class="code-string">'localhost'</span>, port=9000)
+    server.start()</code></pre>
+        </div>
+        
+        <div class="section" id="conclusion">
+            <h2>Conclusion</h2>
+            
+            <p>This web server project demonstrates fundamental concepts of network programming and HTTP protocol implementation. Through this project, we've gained practical experience in:</p>
+            <ul>
+                <li>Socket programming for network communication</li>
+                <li>HTTP protocol implementation and compliance</li>
+                <li>Concurrent request handling with threading</li>
+                <li>File I/O operations and MIME type detection</li>
+                <li>Error handling and security considerations</li>
+                <li>Frontend-backend integration</li>
+                <li>Real-time monitoring and system status reporting</li>
+                <li>Dynamic content generation</li>
+            </ul>
+            
+            <p>The bonus features we implemented significantly enhance the usability and functionality of the server, transforming it from a basic web server into a more feature-rich application with a professional look and feel.</p>
+            
+            <p>While this implementation is simplified for educational purposes, it incorporates many essential features of production web servers and provides a solid foundation for understanding more complex server architectures.</p>
+            
+            <p>The modularity of the code allows for easy extension and enhancement, making it a valuable learning tool for network programming concepts.</p>
+        </div>
+    </div>
+</body>
+</html>

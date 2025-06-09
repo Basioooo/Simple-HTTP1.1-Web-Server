@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>About Our Server</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .hero {
+            background: linear-gradient(135deg, #6e48aa 0%, #9d50bb 100%);
+            box-shadow: 0 0 40px 10px #9d50bb66;
+            animation: heroGlow 3s infinite alternate;
+        }
+        @keyframes heroGlow {
+            0% { box-shadow: 0 0 40px 10px #9d50bb66; }
+            100% { box-shadow: 0 0 80px 20px #6e48aa99; }
+        }
+        .content-section {
+            padding: 3rem 1.5rem;
+        }
+        footer {
+            background-color: #f5f5f5;
+            padding: 2rem 1.5rem;
+        }
+        .team-member {
+            margin-bottom: 1.5rem;
+        }
+        .team-member:last-child {
+            margin-bottom: 0;
+        }
+        .box {
+            border-radius: 16px;
+            box-shadow: 0 0 24px #9d50bb33, 0 0 8px #6e48aa22;
+            background: linear-gradient(120deg, #f8e8ff 60%, #e0c3fc 100%);
+            animation: boxPulse 2.5s infinite alternate;
+        }
+        @keyframes boxPulse {
+            0% { box-shadow: 0 0 24px #9d50bb33, 0 0 8px #6e48aa22; }
+            100% { box-shadow: 0 0 48px #9d50bb66, 0 0 16px #6e48aa44; }
+        }
+        .glow-text {
+            color: #6e48aa;
+            text-shadow: 0 0 8px #9d50bb, 0 0 16px #e0c3fc;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .title, .subtitle, .team-member, .box h3, .box h4 {
+            text-shadow: 0 0 8px #e0c3fc, 0 0 16px #9d50bb;
+            animation: textGlow 2s infinite alternate;
+        }
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 8px #e0c3fc, 0 0 16px #9d50bb; }
+            100% { text-shadow: 0 0 24px #9d50bb, 0 0 32px #e0c3fc; }
+        }
+        .button {
+            box-shadow: 0 0 12px #9d50bb88;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            padding: 0.6em 2em;
+            background: linear-gradient(90deg, #9d50bb 60%, #6e48aa 100%);
+            color: #fff;
+            animation: btnPulse 1.5s infinite alternate;
+            transition: transform 0.2s;
+        }
+        .button:hover {
+            transform: scale(1.07) rotate(-2deg);
+            box-shadow: 0 0 24px #6e48aa99;
+        }
+        @keyframes btnPulse {
+            0% { box-shadow: 0 0 12px #9d50bb88; }
+            100% { box-shadow: 0 0 24px #6e48aa99; }
+        }
+        .fa-info-circle, .fa-users, .fa-code, .fa-cogs {
+            animation: iconSpin 3s linear infinite;
+        }
+        @keyframes iconSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        /* Remove spinning from all icons by default */
+        .fa-music-spin {
+            animation: iconSpin 3s linear infinite;
+        }
+        @keyframes iconSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero is-medium is-bold">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title is-1 has-text-white">
+                    <i class="fas fa-info-circle"></i> About Our Server
+                </h1>
+                <h2 class="subtitle has-text-light">
+                    Technical Details and Implementation
+                </h2>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8 is-offset-2">
+                    <div class="content">
+                        <h3 class="title is-3"><i class="fas fa-users"></i> Development Team</h3>
+                        <div class="box">
+                            <div class="team-member">
+                                <strong>Mahmoud Hesham</strong> (240101375)
+                            </div>
+                            <div class="team-member">
+                                <strong>Doaa Shahin</strong> (240100001)
+                            </div>
+                            <div class="team-member">
+                                <strong>Malak Islam</strong> (240105935)
+                            </div>
+                            <div class="team-member">
+                                <strong>Sama Abd El-Wahhab</strong> (240102714)
+                            </div>
+                        </div>
+
+                        <h3 class="title is-3 mt-5"><i class="fas fa-code"></i> Server Implementation</h3>
+                        <div class="box">
+                            <p>This web server was built using Python's socket library to handle HTTP requests at a low level. Key features include:</p>
+                            <ul>
+                                <li>Multi-threaded request handling</li>
+                                <li>Proper HTTP/1.1 response generation</li>
+                                <li>MIME type detection for different file types</li>
+                                <li>Custom error pages</li>
+                                <li>Security against directory traversal attacks</li>
+                            </ul>
+                        </div>
+
+                        <div class="has-text-centered mt-5">
+                            <a href="/" class="button is-link">
+                                <span class="icon">
+                                    <i class="fas fa-arrow-left"></i>
+                                </span>
+                                <span>Back to Home</span>
+                            </a>
+                            <a href="/code.html" class="button is-info ml-3">
+                                <span class="icon">
+                                    <i class="fas fa-file-code"></i>
+                                </span>
+                                <span>View Code Explanation</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <strong>Team 20 Web Server</strong>.
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

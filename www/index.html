@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Team 20 Web Server</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .hero {
+            background: linear-gradient(135deg, #6e48aa 0%, #9d50bb 100%);
+            box-shadow: 0 0 40px 10px #9d50bb66;
+            animation: heroGlow 3s infinite alternate;
+        }
+        @keyframes heroGlow {
+            0% { box-shadow: 0 0 40px 10px #9d50bb66; }
+            100% { box-shadow: 0 0 80px 20px #6e48aa99; }
+        }
+        .card {
+            box-shadow: 0 4px 16px rgba(110, 72, 170, 0.2), 0 0 10px #9d50bb44;
+            transition: transform 0.3s cubic-bezier(.68,-0.55,.27,1.55), box-shadow 0.3s;
+            height: 100%;
+            border-radius: 18px;
+            background: rgba(255,255,255,0.95);
+        }
+        .card:hover {
+            transform: translateY(-8px) scale(1.03) rotate(-1deg);
+            box-shadow: 0 8px 32px #9d50bb88, 0 0 20px #6e48aa55;
+        }
+        .box {
+            border-radius: 16px;
+            box-shadow: 0 0 24px #9d50bb33, 0 0 8px #6e48aa22;
+            background: linear-gradient(120deg, #f8e8ff 60%, #e0c3fc 100%);
+            animation: boxPulse 2.5s infinite alternate;
+        }
+        @keyframes boxPulse {
+            0% { box-shadow: 0 0 24px #9d50bb33, 0 0 8px #6e48aa22; }
+            100% { box-shadow: 0 0 48px #9d50bb66, 0 0 16px #6e48aa44; }
+        }
+        .glow-text {
+            color: #6e48aa;
+            text-shadow: 0 0 8px #9d50bb, 0 0 16px #e0c3fc;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .music-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #9d50bb;
+            text-shadow: 0 0 8px #e0c3fc, 0 0 16px #9d50bb;
+            margin-bottom: 0.5rem;
+            animation: musicGlow 2s infinite alternate;
+        }
+        @keyframes musicGlow {
+            0% { text-shadow: 0 0 8px #e0c3fc, 0 0 16px #9d50bb; }
+            100% { text-shadow: 0 0 24px #9d50bb, 0 0 32px #e0c3fc; }
+        }
+        #playPauseBtn {
+            box-shadow: 0 0 12px #9d50bb88;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            padding: 0.7em 2em;
+            background: linear-gradient(90deg, #9d50bb 60%, #6e48aa 100%);
+            color: #fff;
+            animation: btnPulse 1.5s infinite alternate;
+        }
+        @keyframes btnPulse {
+            0% { box-shadow: 0 0 12px #9d50bb88; }
+            100% { box-shadow: 0 0 24px #6e48aa99; }
+        }
+        #liveClock {
+            font-family: 'Orbitron', monospace;
+            color: #6e48aa;
+            text-shadow: 0 0 12px #9d50bb, 0 0 24px #e0c3fc;
+            animation: clockGlow 2s infinite alternate;
+        }
+        @keyframes clockGlow {
+            0% { text-shadow: 0 0 12px #9d50bb, 0 0 24px #e0c3fc; }
+            100% { text-shadow: 0 0 24px #9d50bb, 0 0 48px #e0c3fc; }
+        }
+        #systemStatus ul {
+            list-style: none;
+            padding: 0;
+        }
+        #systemStatus li {
+            margin-bottom: 0.5em;
+            font-size: 1.1em;
+            color: #6e48aa;
+            text-shadow: 0 0 6px #e0c3fc;
+            animation: statusMove 2s infinite alternate;
+        }
+        @keyframes statusMove {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(8px); }
+        }
+        .fa-music-spin {
+            animation: iconSpin 3s linear infinite;
+        }
+        @keyframes iconSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        footer {
+            background-color: #f5f5f5;
+            padding: 2rem 1.5rem;
+        }
+        .button {
+            transition: all 0.3s ease;
+        }
+        .button:hover {
+            transform: translateY(-2px);
+        }
+        .card-content {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .card-footer {
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+    <section class="hero is-medium is-bold">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title is-1 has-text-white">
+                    <i class="fas fa-server"></i> Team 20 Web Server
+                </h1>
+                <h2 class="subtitle has-text-light">
+                    Team 20 Network Basics Web Server Project
+                </h2>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <!-- Music Player -->
+            <div class="box mb-5">
+                <div class="music-title">Now Playing: <span class="glow-text">Luther - Kendrick Lamar ft. SZA</span></div>
+                <h3 class="title is-4"><i class="fas fa-music" id="musicIcon"></i> Music Player</h3>
+                <audio id="audioPlayer" src="/luther.mp3"></audio>
+                <button id="playPauseBtn" class="button is-primary">
+                    <span class="icon"><i class="fas fa-play"></i></span>
+                    <span>Play</span>
+                </button>
+            </div>
+            <!-- Live Clock -->
+            <div class="box mb-5">
+                <h3 class="title is-4"><i class="fas fa-clock"></i> Live Clock</h3>
+                <div id="liveClock" class="is-size-3"></div>
+            </div>
+            <!-- System Status -->
+            <div class="box mb-5">
+                <h3 class="title is-4"><i class="fas fa-server"></i> System Status</h3>
+                <div id="systemStatus">
+                    <p>Loading status...</p>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column">
+                    <div class="card">
+                        <div class="card-content">
+                            <h3 class="title is-4"><i class="fas fa-home"></i> Welcome</h3>
+                            <p>This is our HTTP Web server Project.</p>
+                            <div class="card-footer">
+                                <a href="/about.html" class="button is-link">
+                                    <span class="icon">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </span>
+                                    <span>Learn More</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="card">
+                        <div class="card-content">
+                            <h3 class="title is-4"><i class="fas fa-bug"></i> Test 404</h3>
+                            <p>Try accessing a non-existent page to see our custom 404 error page.</p>
+                            <div class="card-footer">
+                                <a href="/test.html" class="button is-warning">
+                                    <span class="icon">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                    </span>
+                                    <span>Test 404</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="card">
+                        <div class="card-content">
+                            <h3 class="title is-4"><i class="fas fa-power-off"></i> Admin</h3>
+                            <p>Server administration and control panel.</p>
+                            <div class="card-footer">
+                                <a href="/shutdown" class="button is-danger">
+                                    <span class="icon">
+                                        <i class="fas fa-power-off"></i>
+                                    </span>
+                                    <span>Shutdown Server</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="columns mt-5">
+                <div class="column">
+                    <div class="card">
+                        <div class="card-content">
+                            <h3 class="title is-4"><i class="fas fa-image"></i> Sample Image</h3>
+                            <p>View a sample image served by our web server.</p>
+                            <div class="card-footer">
+                                <a href="/sample.jpg" class="button is-success">
+                                    <span class="icon">
+                                        <i class="fas fa-eye"></i>
+                                    </span>
+                                    <span>View Image</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="card">
+                        <div class="card-content">
+                            <h3 class="title is-4"><i class="fas fa-file-code"></i> Server Data</h3>
+                            <p>View sample JSON data from our server.</p>
+                            <div class="card-footer">
+                                <a href="/data.json" class="button is-info">
+                                    <span class="icon">
+                                        <i class="fas fa-code"></i>
+                                    </span>
+                                    <span>View JSON</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="card">
+                        <div class="card-content">
+                            <h3 class="title is-4"><i class="fas fa-book"></i> Code Explanation</h3>
+                            <p>Learn how our web server implementation works.</p>
+                            <div class="card-footer">
+                                <a href="/code.html" class="button is-primary">
+                                    <span class="icon">
+                                        <i class="fas fa-file-alt"></i>
+                                    </span>
+                                    <span>View Code</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <strong>Team 20 Web Server</strong>.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+    // Music Player
+    const audio = document.getElementById('audioPlayer');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const musicIcon = document.getElementById('musicIcon');
+    let isPlaying = false;
+    playPauseBtn.addEventListener('click', function() {
+        if (isPlaying) {
+            audio.pause();
+            playPauseBtn.querySelector('span.icon i').className = 'fas fa-play';
+            playPauseBtn.querySelector('span:last-child').textContent = 'Play';
+            musicIcon.classList.remove('fa-music-spin');
+        } else {
+            audio.play();
+            playPauseBtn.querySelector('span.icon i').className = 'fas fa-pause';
+            playPauseBtn.querySelector('span:last-child').textContent = 'Pause';
+            musicIcon.classList.add('fa-music-spin');
+        }
+        isPlaying = !isPlaying;
+    });
+    audio.addEventListener('ended', function() {
+        isPlaying = false;
+        playPauseBtn.querySelector('span.icon i').className = 'fas fa-play';
+        playPauseBtn.querySelector('span:last-child').textContent = 'Play';
+        musicIcon.classList.remove('fa-music-spin');
+    });
+    // Live Clock
+    function updateClock() {
+        const now = new Date();
+        document.getElementById('liveClock').textContent = now.toLocaleString();
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+    // System Status
+    function fetchStatus() {
+        fetch('/status').then(res => res.json()).then(data => {
+            document.getElementById('systemStatus').innerHTML = `
+                <ul>
+                    <li><strong>Server Status:</strong> ${data.status}</li>
+                    <li><strong>Server Time:</strong> ${data.time}</li>
+                    <li><strong>Uptime:</strong> ${data.uptime}</li>
+                    <li><strong>Memory Usage:</strong> ${data.memory}</li>
+                    <li><strong>CPU Usage:</strong> ${data.cpu}</li>
+                </ul>
+            `;
+        }).catch(() => {
+            document.getElementById('systemStatus').innerHTML = '<p>Error loading status.</p>';
+        });
+    }
+    setInterval(fetchStatus, 5000);
+    fetchStatus();
+    </script>
+</body>
+</html>

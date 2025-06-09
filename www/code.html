@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Code Explanation</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .hero {
+            background: linear-gradient(135deg, #6e48aa 0%, #9d50bb 100%);
+            box-shadow: 0 0 40px 10px #9d50bb66;
+            animation: heroGlow 3s infinite alternate;
+        }
+        @keyframes heroGlow {
+            0% { box-shadow: 0 0 40px 10px #9d50bb66; }
+            100% { box-shadow: 0 0 80px 20px #6e48aa99; }
+        }
+        .content-section {
+            padding: 3rem 1.5rem;
+        }
+        footer {
+            background-color: #f5f5f5;
+            padding: 2rem 1.5rem;
+        }
+        .box {
+            border-radius: 16px;
+            box-shadow: 0 0 24px #9d50bb33, 0 0 8px #6e48aa22;
+            background: linear-gradient(120deg, #f8e8ff 60%, #e0c3fc 100%);
+            animation: boxPulse 2.5s infinite alternate;
+        }
+        @keyframes boxPulse {
+            0% { box-shadow: 0 0 24px #9d50bb33, 0 0 8px #6e48aa22; }
+            100% { box-shadow: 0 0 48px #9d50bb66, 0 0 16px #6e48aa44; }
+        }
+        .glow-text {
+            color: #6e48aa;
+            text-shadow: 0 0 8px #9d50bb, 0 0 16px #e0c3fc;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        .title, .subtitle, .box h3, .box h4 {
+            text-shadow: 0 0 8px #e0c3fc, 0 0 16px #9d50bb;
+            animation: textGlow 2s infinite alternate;
+        }
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 8px #e0c3fc, 0 0 16px #9d50bb; }
+            100% { text-shadow: 0 0 24px #9d50bb, 0 0 32px #e0c3fc; }
+        }
+        .button {
+            box-shadow: 0 0 12px #9d50bb88;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            padding: 0.6em 2em;
+            background: linear-gradient(90deg, #9d50bb 60%, #6e48aa 100%);
+            color: #fff;
+            animation: btnPulse 1.5s infinite alternate;
+            transition: transform 0.2s;
+        }
+        .button:hover {
+            transform: scale(1.07) rotate(-2deg);
+            box-shadow: 0 0 24px #6e48aa99;
+        }
+        @keyframes btnPulse {
+            0% { box-shadow: 0 0 12px #9d50bb88; }
+            100% { box-shadow: 0 0 24px #6e48aa99; }
+        }
+        pre {
+            background: #f5f5f5;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            box-shadow: 0 0 16px #e0c3fc88;
+            border: 1.5px solid #9d50bb44;
+            animation: codeGlow 2s infinite alternate;
+        }
+        @keyframes codeGlow {
+            0% { box-shadow: 0 0 8px #e0c3fc88; }
+            100% { box-shadow: 0 0 24px #9d50bb88; }
+        }
+        .fa-code, .fa-arrow-left {
+            animation: iconSpin 3s linear infinite;
+        }
+        @keyframes iconSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .code-block {
+            margin-bottom: 2rem;
+        }
+        .code-title {
+            margin-bottom: 0.5rem;
+        }
+        /* Remove spinning from all icons by default */
+        .fa-music-spin {
+            animation: iconSpin 3s linear infinite;
+        }
+        @keyframes iconSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero is-medium is-bold">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title is-1 has-text-white">
+                    <i class="fas fa-code"></i> Code Explanation
+                </h1>
+                <h2 class="subtitle has-text-light">
+                    How Our Web Server Works
+                </h2>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8 is-offset-2">
+                    <div class="content">
+                        <div class="box">
+                            <h3 class="title is-3">Project Overview</h3>
+                            <p>This web server is a custom Python project that handles HTTP requests, serves static files, and now includes interactive features such as music playback, a live clock, and real-time system status. Below is a breakdown of the code and its main components.</p>
+                        </div>
+                        <div class="box code-block">
+                            <h4 class="title is-4 code-title">1. Server Initialization</h4>
+                            <p>The <code>SimpleHTTPServer</code> class sets up the server socket, configures the root directory, and prepares the server to accept connections.</p>
+                            <pre>class SimpleHTTPServer:
+    def __init__(self, host='localhost', port=8080):
+        self.host = host
+        self.port = port
+        self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self.base_dir = os.path.dirname(os.path.abspath(__file__))
+        self.running = False</pre>
+                        </div>
+                        <div class="box code-block">
+                            <h4 class="title is-4 code-title">2. Starting and Stopping the Server</h4>
+                            <p>The <code>start</code> method binds the server to the specified host and port, listens for incoming connections, and spawns a new thread for each client. The <code>stop</code> method gracefully shuts down the server.</p>
+                            <pre>def start(self):
+    ...
+def stop(self):
+    ...</pre>
+                        </div>
+                        <div class="box code-block">
+                            <h4 class="title is-4 code-title">3. Handling Requests</h4>
+                            <p>The <code>handle_request</code> method parses incoming HTTP requests, routes them to the appropriate handler (static file, shutdown, or status), and ensures security by blocking directory traversal attempts.</p>
+                            <pre>def handle_request(self, client_socket):
+    ...</pre>
+                        </div>
+                        <div class="box code-block">
+                            <h4 class="title is-4 code-title">4. Serving Static Files</h4>
+                            <p>The <code>handle_get</code> method serves files from the <code>www</code> directory, determines the correct MIME type, and returns custom error pages for missing files.</p>
+                            <pre>def handle_get(self, client_socket, file_path):
+    ...</pre>
+                        </div>
+                        <div class="box code-block">
+                            <h4 class="title is-4 code-title">5. Shutdown Endpoint</h4>
+                            <p>Visiting <code>/shutdown</code> triggers a graceful server shutdown and displays a notification page.</p>
+                            <pre>def handle_shutdown(self, client_socket):
+    ...</pre>
+                        </div>
+                        <div class="box code-block">
+                            <h4 class="title is-4 code-title">6. System Status Endpoint</h4>
+                            <p>The <code>/status</code> endpoint returns a JSON object with server status, time, uptime, memory usage, and CPU usage. If <code>psutil</code> is not installed, memory and CPU usage will show as unavailable.</p>
+                            <pre>def handle_status(self, client_socket):
+    ...</pre>
+                        </div>
+                        <div class="box code-block">
+                            <h4 class="title is-4 code-title">7. Dynamic HTML Generation</h4>
+                            <p>The <code>generate_page</code> and <code>generate_error_page</code> methods create styled HTML pages for normal and error responses, using Bulma CSS and Font Awesome icons.</p>
+                            <pre>def generate_page(self, title, content):
+    ...
+def generate_error_page(self, error_code, error_name, message):
+    ...</pre>
+                        </div>
+                        <div class="box code-block">
+                            <h4 class="title is-4 code-title">8. Frontend Features</h4>
+                            <ul>
+                                <li><strong>Music Player:</strong> Lets users play/pause <code>luther.mp3</code> with a button and displays the song name.</li>
+                                <li><strong>Live Clock:</strong> Shows the current time, updating every second with JavaScript.</li>
+                                <li><strong>System Status:</strong> Fetches and displays server status, time, uptime, memory, and CPU usage (shows N/A if <code>psutil</code> is not installed).</li>
+                            </ul>
+                        </div>
+                        <div class="has-text-centered mt-5">
+                            <a href="/" class="button is-link">
+                                <span class="icon">
+                                    <i class="fas fa-arrow-left"></i>
+                                </span>
+                                <span>Back to Home</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <strong>Team 20 Web Server</strong>.
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

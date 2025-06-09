@@ -1,0 +1,16 @@
+{
+    "project": "Team 20 Web Server Project",
+    "course": "Network Basics",
+    "Supervisor": "DR. Mariam Labib",
+    "features": [
+        "Handles HTTP GET requests",
+        "Serves static files",
+        "Returns proper status codes",
+        "Includes basic security",
+    "Students Names & ID": [
+	"Mahmoud Hesham (240101375)",
+	"Doaa Shahin (240100001)",
+	"Malak Islam (240105935)",
+	"Sama Abd El-Wahhab (240102714)"
+    ]
+}
